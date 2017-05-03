@@ -42,7 +42,8 @@ namespace Sandbox.Server.Http.WebApi.V1.Controllers
 
         [Route("articles/feed")]
         [HttpGet]
-        public async Task<ArticlesView> Feed(){
+        public async Task<ArticlesView> Feed()
+        {
             
             var list = await _handler.RetrieveAll();
             var articles = new ArticlesView();
@@ -52,17 +53,38 @@ namespace Sandbox.Server.Http.WebApi.V1.Controllers
             return articles;
         }
 
-        public async Task<IEnumerable<Article>> GetBy([FromQuery]string author = "", [FromQuery]string favorited = "", [FromQuery]string tag = "" ){
-            // TODO 
-            throw new NotImplementedException();
+        [HttpGet]
+        [Route("articles")]
+        public async Task<ArticlesView> GetBy([FromQuery]string author = "", [FromQuery]string favorited = "", [FromQuery]string tag = "" )
+        {
+            IEnumerable<Article> articles = null;
+            ArticlesView articlesView = new ArticlesView();
 
-            var list = await _handler.RetrieveAll();
-            return list;
+            if(!string.IsNullOrEmpty(author))
+            {
+                throw new NotImplementedException();
+                articles = await this._repository.RetrieveByAuthor(author);
+            }
+            else if(!string.IsNullOrEmpty(favorited))
+            {
+                throw new NotImplementedException();
+               // articles = await this._repository.RetrieveByFavorited(favorited);
+            }
+            else if(!string.IsNullOrEmpty(tag))
+            {
+                articles = await this._repository.RetrieveByTag(tag);
+            }
+
+            articlesView.Articles = articles.Select(x => new ArticleView(x)).ToList();
+            articlesView.ArticlesCount = articles.Count();
+
+            return articlesView;
         }
 
         [Route("articles/{slug}")]
         [HttpGet]
-        public async Task<RootArticleView> Get([FromQuery]string slug ){
+        public async Task<RootArticleView> Get(string slug )
+        {
             
             var model = await _repository.RetrieveSingleBySlug(slug);
             return new RootArticleView() { Article = new ArticleView(model) };
@@ -70,7 +92,8 @@ namespace Sandbox.Server.Http.WebApi.V1.Controllers
 
         [Route("articles/{slug}")]
         [HttpPut]
-        public async Task<RootArticleView> Update([FromQuery]string slug, [FromBody]RootArticleView articleVm ){
+        public async Task<RootArticleView> Update([FromRoute]string slug, [FromBody]RootArticleView articleVm )
+        {
             
             // TODO 
             throw new NotImplementedException();
@@ -79,7 +102,8 @@ namespace Sandbox.Server.Http.WebApi.V1.Controllers
 
         [Route("articles/{slug}")]
         [HttpDelete]
-        public async Task<RootArticleView> Delete([FromQuery]string slug ){
+        public async Task<RootArticleView> Delete(string slug )
+        {
              // TODO 
             throw new NotImplementedException();
 
@@ -87,7 +111,8 @@ namespace Sandbox.Server.Http.WebApi.V1.Controllers
 
         [Route("articles/{slug}/favorite")]
         [HttpPost]
-        public async Task<RootArticleView> Favorite([FromQuery]string slug ){
+        public async Task<RootArticleView> Favorite(string slug )
+        {
             
             // TODO 
             throw new NotImplementedException();
@@ -96,7 +121,8 @@ namespace Sandbox.Server.Http.WebApi.V1.Controllers
 
         [Route("articles/{slug}/favorite")]
         [HttpDelete]
-        public async Task<RootArticleView> Unfavorite([FromQuery]string slug ){
+        public async Task<RootArticleView> Unfavorite(string slug )
+        {
              // TODO 
             throw new NotImplementedException();
 

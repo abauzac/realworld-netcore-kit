@@ -8,5 +8,10 @@ namespace Sandbox.Server.DomainObjects.Interfaces.Repositories
   public interface IArticleRepository : IEntityRepository<Article>
   {
      Task<Article> RetrieveSingleBySlug(string slug);
+
+     Task<IEnumerable<Article>> RetrieveByAuthor(string author);
+
+
+     Task<IEnumerable<Article>> RetrieveByTag(string tag);
   }
 }

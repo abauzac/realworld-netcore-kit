@@ -9,6 +9,12 @@ namespace Sandbox.Server.DataAccess.Repositories
 {
     public class ArticleRepository : EntityRepository<Article>, IArticleRepository
     {
+        private IPersonRepository _personRepository;
+
+        public ArticleRepository(IPersonRepository personRepository)
+        {
+            this._personRepository = personRepository;
+        }
 
         public virtual async Task<Article> RetrieveSingleBySlug(string slug)
         {
@@ -16,6 +22,20 @@ namespace Sandbox.Server.DataAccess.Repositories
 
             var list = await collectionHandler.ReadOnly<Article>().FindAsync(filter);
             return await list.FirstOrDefaultAsync();
+        }
+
+        public virtual async Task<IEnumerable<Article>> RetrieveByAuthor(string author)
+        {
+            var filter = Builders<Article>.Filter.Where(x => x.Author.Username == author);
+            var list = await collectionHandler.ReadOnly<Article>().FindAsync(filter);
+            return await list.ToListAsync();
+        }
+
+        public virtual async Task<IEnumerable<Article>> RetrieveByTag(string tag)
+        {
+            var filter = Builders<Article>.Filter.Where(x => x.TagList.Contains(tag));
+            var list = await collectionHandler.ReadOnly<Article>().FindAsync(filter);
+            return await list.ToListAsync();
         }
     }
 }

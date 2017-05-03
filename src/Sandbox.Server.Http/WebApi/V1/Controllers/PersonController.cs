@@ -26,7 +26,8 @@ namespace Sandbox.Server.Http.WebApi.V1.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("users/login")]
-        public JsonResult Login([FromBody] RootUserAuthView user){
+        public JsonResult Login([FromBody] RootUserAuthView user)
+        {
             // TODO
             
             return Json(new RootUserAuthView());
@@ -56,7 +57,8 @@ namespace Sandbox.Server.Http.WebApi.V1.Controllers
         /// <returns>A UserAuthView Json object</returns>
         [HttpPut]
         [Route("user")]
-        public JsonResult UpdateUser([FromBody] RootUserAuthView user){
+        public JsonResult UpdateUser([FromBody] RootUserAuthView user)
+        {
             // TODO
             
             return Json(new {});
@@ -69,7 +71,8 @@ namespace Sandbox.Server.Http.WebApi.V1.Controllers
         /// <returns>A ProfileView Json</returns>
         [HttpGet]
         [Route("profiles/{username}")]
-        public JsonResult GetProfile(string username){
+        public JsonResult GetProfile(string username)
+        {
             // TODO
             
             return Json(new RootProfileView());
@@ -82,7 +85,8 @@ namespace Sandbox.Server.Http.WebApi.V1.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("profiles/{username}/follow")]
-        public JsonResult FollowProfile(string username){
+        public JsonResult FollowProfile(string username)
+        {
             // TODO
             
             return Json(new RootProfileView());
@@ -95,7 +99,8 @@ namespace Sandbox.Server.Http.WebApi.V1.Controllers
         /// <returns></returns>
         [HttpDelete]
         [Route("profiles/{username}/follow")]
-        public JsonResult UnfollowProfile(string username){
+        public JsonResult UnfollowProfile(string username)
+        {
             // TODO
             
             return Json(new RootProfileView());
