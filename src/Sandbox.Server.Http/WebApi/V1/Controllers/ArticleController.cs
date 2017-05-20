@@ -85,7 +85,6 @@ namespace Sandbox.Server.Http.WebApi.V1.Controllers
         [HttpGet]
         public async Task<RootArticleView> Get(string slug )
         {
-            
             var model = await _repository.RetrieveSingleBySlug(slug);
             return new RootArticleView() { Article = new ArticleView(model) };
         }
@@ -102,10 +101,14 @@ namespace Sandbox.Server.Http.WebApi.V1.Controllers
 
         [Route("articles/{slug}")]
         [HttpDelete]
-        public async Task<RootArticleView> Delete(string slug )
+        public async Task<ActionResult> Delete(string slug )
         {
-             // TODO 
-            throw new NotImplementedException();
+            var numberOfDeleted = await this._repository.DeleteBySlug(slug);
+            if(numberOfDeleted == 1){
+                return Accepted();
+            }else{
+                return NotFound();
+            }
 
         }
 

@@ -37,5 +37,10 @@ namespace Sandbox.Server.DataAccess.Repositories
             var list = await collectionHandler.ReadOnly<Article>().FindAsync(filter);
             return await list.ToListAsync();
         }
+
+        public virtual async Task<long> DeleteBySlug(string slug){
+            var result =  await collectionHandler.Write<Article>().DeleteOneAsync(x => x.Slug.Equals(slug));
+            return result.DeletedCount;
+        }
     }
 }

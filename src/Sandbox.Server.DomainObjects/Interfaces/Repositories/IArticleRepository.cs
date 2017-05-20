@@ -13,5 +13,7 @@ namespace Sandbox.Server.DomainObjects.Interfaces.Repositories
 
 
      Task<IEnumerable<Article>> RetrieveByTag(string tag);
-  }
+
+        Task<long> DeleteBySlug(string slug);
+    }
 }
