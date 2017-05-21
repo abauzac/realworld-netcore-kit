@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Sandbox.Server.DomainObjects.Interfaces.Models.Abstract;
+using Sandbox.Server.DomainObjects.Models;
 
 namespace Sandbox.Server.DomainObjects.Interfaces.Handlers.Abstract
 {

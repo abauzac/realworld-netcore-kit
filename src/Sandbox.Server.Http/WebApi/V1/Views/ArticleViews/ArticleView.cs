@@ -15,8 +15,7 @@ namespace Sandbox.Server.Http.WebApi.V1.Views.ArticleViews
 
         public ArticleView(Article model) : base(model)
         {
-            this.CreatedAt = model.GetCreationDate();
-            this.UpdatedAt = model.GetModificationDate();
+            this.CreatedAt = model.Id.CreationTime;
         }
 
         public string Slug { get; set; }
@@ -26,12 +25,10 @@ namespace Sandbox.Server.Http.WebApi.V1.Views.ArticleViews
         public string Description { get; set; }
 
         public string Body { get; set; }
+        
+        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
-        [JsonConverter(typeof(IsoDateTimeConverter))]
-        public DateTime CreatedAt { get; set; } = new DateTime();
-
-        [JsonConverter(typeof(IsoDateTimeConverter))]
-        public DateTime UpdatedAt { get; set; } = new DateTime();
+        public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
 
         public bool Favorited { get; set; }
 

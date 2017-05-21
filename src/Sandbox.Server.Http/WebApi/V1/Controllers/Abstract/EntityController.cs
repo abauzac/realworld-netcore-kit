@@ -18,10 +18,10 @@ namespace Sandbox.Server.Http.WebApi.V1.Controllers.Abstract
 
       protected string GenerateUrl(TE entity)
       {
-        return GenerateUrl(entity.GetType().Name, entity.Id);
+        return GenerateUrl(entity.GetType().Name, entity.Id.ToString());
       }
 
-      protected string GenerateUrl(string typeName, Guid id)
+      protected string GenerateUrl(string typeName, string id)
       {
         return Url.Action("Get", typeName, new {id = id}, Request.Scheme);
       }

@@ -21,7 +21,7 @@ namespace Sandbox.Server.DataAccess.Repositories.Abstract
         public virtual async Task<TE> Create(TE instance)
         {
             // Increment revision
-            instance.Revision = GenerateRevision();
+            instance.UpdatedAt = DateTime.UtcNow;
 
             await collectionHandler.Write<TE>().InsertOneAsync(instance);
             return instance;
@@ -37,12 +37,12 @@ namespace Sandbox.Server.DataAccess.Repositories.Abstract
 
         public virtual async Task<TE> Update(TE instance)
         {
+            // ObjectId is generated using the timestamp creation date
             var filter = Builders<TE>.Filter.And(
-                Builders<TE>.Filter.Eq("_id", instance.Id),
-                Builders<TE>.Filter.Eq("Revision", instance.Revision));
+                Builders<TE>.Filter.Eq("_id", instance.Id));
 
             // Increment revision
-            instance.Revision = GenerateRevision();
+            instance.UpdatedAt = DateTime.UtcNow;
 
             // Concurrency check
             var previousInstance = await collectionHandler.Write<TE>().FindOneAndReplaceAsync(filter, instance);
@@ -67,21 +67,6 @@ namespace Sandbox.Server.DataAccess.Repositories.Abstract
 
             var list = await collectionHandler.ReadOnly<TE>().FindSync(filter).ToListAsync();
             return list;
-        }
-
-        protected Guid GenerateRevision()
-        {
-            var date = BitConverter.GetBytes(DateTime.Now.ToBinary());
-            Array.Reverse(date);
-
-            var random = new byte[8];
-            RandomGenerator.NextBytes(random);
-
-            var guid = new byte[16];
-            Buffer.BlockCopy(date, 0, guid, 0, 8);
-            Buffer.BlockCopy(random, 0, guid, 8, 8);
-
-            return new Guid(guid);
         }
     }
 }

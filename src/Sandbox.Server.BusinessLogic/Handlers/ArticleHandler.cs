@@ -23,8 +23,21 @@ namespace Sandbox.Server.BusinessLogic.Handlers
             return await _repository.Create(entity);
         }
 
+
+        public Task<Article> UpdateForSlug(string slug, Article entity)
+        {
+            entity.Slug = NormalizeStringForUrl(entity.Title);
+
+            var article = (this._repository as IArticleRepository).UpdateForSlug(slug, entity);
+
+            return article;
+        }
+
         private static string NormalizeStringForUrl(string name)
         {
+            if(string.IsNullOrEmpty(name))
+                return null;
+
             String normalizedString = name.ToLowerInvariant().Normalize(NormalizationForm.FormC);
             StringBuilder stringBuilder = new StringBuilder();
 
@@ -48,5 +61,6 @@ namespace Sandbox.Server.BusinessLogic.Handlers
             return String.Join("-", result.Split(new char[] { '-' }
                 , StringSplitOptions.RemoveEmptyEntries)); 
         }
+
     }
 }

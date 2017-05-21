@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using MongoDB.Bson;
 using MongoDB.Driver;
 using Sandbox.Server.DataAccess.Repositories.Abstract;
 using Sandbox.Server.DomainObjects.Interfaces.Repositories;
@@ -38,9 +40,20 @@ namespace Sandbox.Server.DataAccess.Repositories
             return await list.ToListAsync();
         }
 
-        public virtual async Task<long> DeleteBySlug(string slug){
-            var result =  await collectionHandler.Write<Article>().DeleteOneAsync(x => x.Slug.Equals(slug));
+        public virtual async Task<long> DeleteBySlug(string slug)
+        {
+            var result = await collectionHandler.Write<Article>().DeleteOneAsync(x => x.Slug.Equals(slug));
             return result.DeletedCount;
+        }
+
+        public virtual async Task<Article> UpdateForSlug(string slug, Article entity)
+        {
+            var filter = Builders<Article>.Filter.Where(x => x.Slug.Equals(slug));
+
+            var res = await collectionHandler.Write<Article>()
+                        .FindOneAndUpdateAsync(x => x.Slug.Equals(slug), entity.ToBsonDocument());
+
+            return res;
         }
     }
 }

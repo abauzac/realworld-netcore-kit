@@ -1,5 +1,4 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <TargetFramework>netstandard1.6</TargetFramework>
     <AssemblyName>Sandbox.Server.DomainObjects</AssemblyName>
@@ -7,5 +6,7 @@
     <NetStandardImplicitPackageVersion>1.6.0</NetStandardImplicitPackageVersion>
     <PackageTargetFallback>$(PackageTargetFallback);dnxcore50</PackageTargetFallback>
   </PropertyGroup>
-
+  <ItemGroup>
+    <PackageReference Include="mongocsharpdriver" Version="2.4.3" />
+  </ItemGroup>
 </Project>

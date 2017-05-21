@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.PlatformAbstractions;
+using MongoDB.Bson.Serialization.Conventions;
 using Newtonsoft.Json.Serialization;
 using Sandbox.Server.BusinessLogic.Handlers;
 using Sandbox.Server.DataAccess.Repositories;
@@ -81,7 +82,15 @@ namespace Sandbox.Server.Http
                 .OpenConnections(
                     Configuration.GetConnectionString("readOnlyAccess"),
                     Configuration.GetConnectionString("writeAccess"));
-            
+
+            // when de/serializing an object, we want to ignore null values when calling ToBsonDocument()
+            // ConventionRegistry.Register("IgnoreIfNull",
+            //                             new ConventionPack { new IgnoreIfNullConvention(true) },
+            //                             t => true);
+            ConventionRegistry.Register("IgnoreIfDefault",
+                            new ConventionPack { new IgnoreIfDefaultConvention(true) },
+                            t => true);
+
 
             app.UseMvc();
 

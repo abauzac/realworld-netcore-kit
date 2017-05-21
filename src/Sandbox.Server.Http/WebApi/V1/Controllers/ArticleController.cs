@@ -93,9 +93,15 @@ namespace Sandbox.Server.Http.WebApi.V1.Controllers
         [HttpPut]
         public async Task<RootArticleView> Update([FromRoute]string slug, [FromBody]RootArticleView articleVm )
         {
-            
-            // TODO 
-            throw new NotImplementedException();
+
+            Article entity = new Article();
+            articleVm.Article.Hydrate(entity);
+
+            entity = await (this._handler as IArticleHandler).UpdateForSlug(slug, entity);
+
+
+            // anon type to have "article" root object name (API contract)
+            return new RootArticleView() { Article = new ArticleView(entity) };
 
         }
 
@@ -109,7 +115,6 @@ namespace Sandbox.Server.Http.WebApi.V1.Controllers
             }else{
                 return NotFound();
             }
-
         }
 
         [Route("articles/{slug}/favorite")]
