@@ -4,7 +4,7 @@ using Sandbox.Server.DomainObjects.Models.Abstract;
 
 namespace Sandbox.Server.DomainObjects.Models
 {
-  public class Person : Entity
+  public class User : Entity
   {
     public string Username { get; set; }
     
@@ -16,7 +16,7 @@ namespace Sandbox.Server.DomainObjects.Models
 
     public List<Article> Favorites {get;set;}
 
-    public List<Person> Following {get;set;}
+    public List<User> Following {get;set;}
 
     public string Hash {get;set;}
 

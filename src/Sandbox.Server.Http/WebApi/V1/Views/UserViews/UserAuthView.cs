@@ -1,25 +1,28 @@
 using System;
 using System.Collections.Generic;
+using MongoDB.Bson;
 using Sandbox.Server.DomainObjects.Models;
 using Sandbox.Server.Http.WebApi.V1.Views.Abstract;
 
-namespace Sandbox.Server.Http.WebApi.V1.Views.PersonViews
+namespace Sandbox.Server.Http.WebApi.V1.Views.UserViews
 {
     public class RootUserAuthView
     {
         public UserAuthView User {get;set;}
     }
 
-    public class UserAuthView : EntityView<Person>
+    public class UserAuthView : EntityView<User>
     {
         public UserAuthView() : base()
         {
         }
 
-        public UserAuthView(Person person) : base(person)
+        public UserAuthView(User person) : base(person)
         {
         }
 
+        public ObjectId Id { get; set; }
+        
         public string Username { get; set; }
     
         public string Email { get; set; }
@@ -29,6 +32,7 @@ namespace Sandbox.Server.Http.WebApi.V1.Views.PersonViews
         public string Image {get;set;}
 
         public string Token {get;set;}
+
 
     }
 }

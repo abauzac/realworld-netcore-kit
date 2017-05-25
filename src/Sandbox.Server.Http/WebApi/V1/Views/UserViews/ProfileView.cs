@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Sandbox.Server.DomainObjects.Models;
 using Sandbox.Server.Http.WebApi.V1.Views.Abstract;
 
-namespace Sandbox.Server.Http.WebApi.V1.Views.PersonViews
+namespace Sandbox.Server.Http.WebApi.V1.Views.UserViews
 {
     public class RootProfileView
     {
@@ -12,13 +12,13 @@ namespace Sandbox.Server.Http.WebApi.V1.Views.PersonViews
 
     }
 
-    public class ProfileView : EntityView<Person>
+    public class ProfileView : EntityView<User>
     {
         public ProfileView() : base()
         {
         }
 
-        public ProfileView(Person person) : base(person)
+        public ProfileView(User person) : base(person)
         {
         }
 

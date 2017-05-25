@@ -3,7 +3,7 @@ using Sandbox.Server.DomainObjects.Models;
 
 namespace Sandbox.Server.DomainObjects.Interfaces.Handlers
 {
-  public interface IPersonHandler: IEntityHandler<Person>
+  public interface IUserHandler: IEntityHandler<User>
   {
 
   }

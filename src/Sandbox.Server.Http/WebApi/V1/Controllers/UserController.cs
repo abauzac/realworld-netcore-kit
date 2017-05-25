@@ -8,16 +8,39 @@ using Sandbox.Server.DomainObjects.Interfaces.Handlers.Abstract;
 using Sandbox.Server.DomainObjects.Models;
 using Sandbox.Server.Http.WebApi.V1.Controllers.Abstract;
 using Sandbox.Server.Http.WebApi.V1.Views;
-using Sandbox.Server.Http.WebApi.V1.Views.PersonViews;
+using Sandbox.Server.Http.WebApi.V1.Views.UserViews;
 
 namespace Sandbox.Server.Http.WebApi.V1.Controllers
 {
    [Route("api")]
-    public class PersonController : EntityController<Person, IEntityHandler<Person>>
+    public class UserController : EntityController<User, IEntityHandler<User>>
     {
-        public PersonController(IPersonHandler handler) : base(handler)
+        public UserController(IUserHandler handler) : base(handler)
         {
         }
+
+        /// <summary>
+        /// Register a user
+        /// No authentication required
+        /// </summary>
+        /// <param name="username"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("users")]
+        public async Task<JsonResult> Register([FromBody] RootUserRegisterView user)
+        {
+            var userModel = new User();
+            user.User.Hydrate(userModel);
+
+            var userCreated = await (this._handler as IUserHandler).Create(userModel);
+
+
+            return Json(new RootUserAuthView()
+            {
+                User = new UserAuthView(userCreated)
+            });
+        } 
+
 
         /// <summary>
         /// No authentication required

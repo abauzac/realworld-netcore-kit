@@ -4,7 +4,7 @@ using Sandbox.Server.DomainObjects.Models;
 
 namespace Sandbox.Server.DataAccess.Repositories
 {
-  public class PersonRepository : EntityRepository<Person>, IPersonRepository
+  public class UserRepository : EntityRepository<User>, IUserRepository
   {
 
   }

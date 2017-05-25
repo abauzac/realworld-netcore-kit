@@ -7,14 +7,14 @@ using Sandbox.Server.DomainObjects.Models;
 
 namespace Sandbox.Server.BusinessLogic.Handlers
 {
-    public class PersonHandler : EntityHandler<Person, IEntityRepository<Person>>, IPersonHandler
+    public class UserHandler : EntityHandler<User, IEntityRepository<User>>, IUserHandler
     {
-        public PersonHandler(IPersonRepository repository) : base(repository)
+        public UserHandler(IUserRepository repository) : base(repository)
         {
         }
 
 
-        public async Task<Person> Create(Person instance)
+        public async Task<User> Create(User instance)
         {
             // TODO hash password
 

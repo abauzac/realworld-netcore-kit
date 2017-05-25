@@ -9,7 +9,7 @@ namespace Sandbox.Server.DomainObjects.Models
 
         public string Body {get;set;}
 
-        public Person Author {get;set;}
+        public User Author {get;set;}
 
         public Article Article {get;set;}
     }

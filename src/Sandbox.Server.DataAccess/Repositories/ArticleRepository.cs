@@ -11,9 +11,9 @@ namespace Sandbox.Server.DataAccess.Repositories
 {
     public class ArticleRepository : EntityRepository<Article>, IArticleRepository
     {
-        private IPersonRepository _personRepository;
+        private IUserRepository _personRepository;
 
-        public ArticleRepository(IPersonRepository personRepository)
+        public ArticleRepository(IUserRepository personRepository)
         {
             this._personRepository = personRepository;
         }

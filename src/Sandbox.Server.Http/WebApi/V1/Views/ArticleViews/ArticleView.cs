@@ -36,7 +36,7 @@ namespace Sandbox.Server.Http.WebApi.V1.Views.ArticleViews
 
         public int FavoritesCount { get; set; }
 
-        public Person Author {get;set;}
+        public User Author {get;set;}
 
     }
 }
