@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using MongoDB.Bson;
 using Sandbox.Server.DomainObjects.Models.Abstract;
 
 namespace Sandbox.Server.DomainObjects.Models
