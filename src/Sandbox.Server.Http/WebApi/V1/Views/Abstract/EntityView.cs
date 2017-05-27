@@ -1,11 +1,19 @@
+using System;
 using System.Linq;
 using System.Reflection;
+using MongoDB.Bson;
+using Newtonsoft.Json;
 
 namespace Sandbox.Server.Http.WebApi.V1.Views.Abstract
 {
     public abstract class EntityView<TE>
         where TE : Sandbox.Server.DomainObjects.Interfaces.Models.Abstract.IEntity
     {
+
+
+        [JsonConverter(typeof(ObjectIdToStringJsonConverter))]
+        public ObjectId Id { get; set; }
+
         public EntityView() : base()
         {
         }
@@ -39,5 +47,30 @@ namespace Sandbox.Server.Http.WebApi.V1.Views.Abstract
 
             return entity;
         }
+    }
+
+
+    internal class ObjectIdToStringJsonConverter : JsonConverter
+    {
+        public override bool CanConvert(Type objectType)
+        {
+            return true;
+        }
+
+        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+        {
+            writer.WriteValue(value.ToString());
+        }
+
+        public override bool CanRead
+        {
+            get { return true; }
+        }
+
+        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+        {
+            return new ObjectId(existingValue as string);
+        }
+
     }
 }

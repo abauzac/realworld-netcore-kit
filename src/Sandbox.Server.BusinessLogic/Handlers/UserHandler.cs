@@ -14,7 +14,7 @@ namespace Sandbox.Server.BusinessLogic.Handlers
         }
 
 
-        public async Task<User> Create(User instance)
+        public override async Task<User> Create(User instance)
         {
             // TODO hash password
 

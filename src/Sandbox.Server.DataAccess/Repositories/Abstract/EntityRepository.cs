@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using MongoDB.Bson;
 using MongoDB.Driver;
 using Sandbox.Server.DomainObjects.Interfaces.Models.Abstract;
 using Sandbox.Server.DomainObjects.Interfaces.Repositories.Abstract;
@@ -27,7 +28,7 @@ namespace Sandbox.Server.DataAccess.Repositories.Abstract
             return instance;
         }
 
-        public virtual async Task<TE> Retrieve(Guid id)
+        public virtual async Task<TE> Retrieve(ObjectId id)
         {
             var filter = Builders<TE>.Filter.Eq("_id", id);
             

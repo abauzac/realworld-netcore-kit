@@ -1,7 +1,9 @@
 using System;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using MongoDB.Bson;
 using Sandbox.Server.DomainObjects.Interfaces.Handlers;
 using Sandbox.Server.DomainObjects.Interfaces.Handlers.Abstract;
 using Sandbox.Server.DomainObjects.Interfaces.Repositories;
@@ -53,9 +55,18 @@ namespace Sandbox.Server.Http.WebApi.V1.Controllers
 
         [HttpDelete]
         [Route("articles/{slug}/comments/{commentId}")]
-        public Task<CommentView> Delete(string slug, int commentId)
+        public async Task<ActionResult> Delete(string slug, string commentId)
         {
-            throw new NotImplementedException();
+
+            var success = await (this._handler as ICommentHandler).DeleteForCommentId(commentId);
+            if(success){
+                return Json(new { });
+            }else
+            {
+                Response.StatusCode = (int)HttpStatusCode.ExpectationFailed;
+                return Json(new { });
+            }
+
         }
     }
 }

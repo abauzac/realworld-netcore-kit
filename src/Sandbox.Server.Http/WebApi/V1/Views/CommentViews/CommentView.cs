@@ -2,6 +2,8 @@
 
 using System;
 using System.Collections.Generic;
+using MongoDB.Bson;
+using Newtonsoft.Json;
 using Sandbox.Server.DomainObjects.Models;
 using Sandbox.Server.Http.WebApi.V1.Views.Abstract;
 using Sandbox.Server.Http.WebApi.V1.Views.UserViews;
@@ -21,13 +23,14 @@ namespace Sandbox.Server.Http.WebApi.V1.Views.CommentViews
 
     public class CommentView : EntityView<Comment>
     {
-
+        public CommentView()
+        {
+            
+        }
         public CommentView(Comment comment) : base(comment)
         {
             this.CreatedAt = comment.Id.CreationTime;
         }
-
-        public string Id { get; set; }
 
         public string Body { get; set; }
 
@@ -38,4 +41,5 @@ namespace Sandbox.Server.Http.WebApi.V1.Views.CommentViews
         public UserAuthView Author { get; set; }
 
     }
+
 }

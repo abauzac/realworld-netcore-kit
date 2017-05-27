@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using MongoDB.Bson;
 using Sandbox.Server.BusinessLogic.Handlers.Abstract;
 using Sandbox.Server.DomainObjects.Interfaces.Handlers;
 using Sandbox.Server.DomainObjects.Interfaces.Repositories;
@@ -13,6 +14,11 @@ namespace Sandbox.Server.BusinessLogic.Handlers
     {
         public CommentHandler(ICommentRepository repository) : base(repository)
         {
+        }
+
+        public async Task<bool> DeleteForCommentId(string id)
+        {
+            return await (this._repository as ICommentRepository).DeleteForId(new ObjectId(id));
         }
 
     }

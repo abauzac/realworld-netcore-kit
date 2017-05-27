@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using MongoDB.Bson;
 using Sandbox.Server.DomainObjects.Interfaces.Handlers.Abstract;
 using Sandbox.Server.DomainObjects.Interfaces.Models.Abstract;
 using Sandbox.Server.DomainObjects.Interfaces.Repositories.Abstract;
@@ -23,7 +24,7 @@ namespace Sandbox.Server.BusinessLogic.Handlers.Abstract
             return await _repository.Create(instance);
         }
 
-        public virtual async Task<TE> Retrieve(Guid id)
+        public virtual async Task<TE> Retrieve(ObjectId id)
         {
             return await _repository.Retrieve(id);
         }

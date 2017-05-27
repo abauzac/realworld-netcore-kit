@@ -21,7 +21,6 @@ namespace Sandbox.Server.Http.WebApi.V1.Views.UserViews
         {
         }
 
-        public ObjectId Id { get; set; }
         
         public string Username { get; set; }
     

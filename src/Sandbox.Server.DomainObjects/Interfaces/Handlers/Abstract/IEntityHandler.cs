@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using MongoDB.Bson;
 using Sandbox.Server.DomainObjects.Interfaces.Models.Abstract;
 using Sandbox.Server.DomainObjects.Models;
 
@@ -10,7 +11,7 @@ namespace Sandbox.Server.DomainObjects.Interfaces.Handlers.Abstract
       where TE: IEntity
     {
         Task<TE> Create(TE instance);
-        Task<TE> Retrieve(Guid id);
+        Task<TE> Retrieve(ObjectId id);
         Task<TE> Update(TE instance);
         void Delete(TE instance);
 

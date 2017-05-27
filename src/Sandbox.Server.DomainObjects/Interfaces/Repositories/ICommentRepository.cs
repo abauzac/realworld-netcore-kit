@@ -8,5 +8,7 @@ namespace Sandbox.Server.DomainObjects.Interfaces.Repositories
   public interface ICommentRepository : IEntityRepository<Comment>
   {
         Task<List<Comment>> RetrieveAllForSlug(string slug);
-  }
+
+        Task<bool> DeleteForId(MongoDB.Bson.ObjectId id);
+    }
 }
