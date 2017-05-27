@@ -15,7 +15,7 @@ using Swashbuckle.AspNetCore.Swagger;
 
 namespace Sandbox.Server.Http
 {
-    public class Startup
+    public partial class Startup
     {
         public Startup(IHostingEnvironment env)
         {
@@ -91,13 +91,16 @@ namespace Sandbox.Server.Http
                             new ConventionPack { new IgnoreIfDefaultConvention(true) },
                             t => true);
 
+            ConfigureAuth(app);
 
             app.UseMvc();
 
-            if(env.IsDevelopment()){
+            if (env.IsDevelopment())
+            {
                 app.UseSwagger();
 
-                app.UseSwaggerUi(c => {
+                app.UseSwaggerUi(c =>
+                {
                     //c.SwaggerEndpoint("/swagger/v2/swagger.json", "V2 Docs");
                     // Add new Api version above
                     c.SwaggerEndpoint("/swagger/v1/swagger.json", "API Docs");
